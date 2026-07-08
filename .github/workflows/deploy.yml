@@ -92,15 +92,28 @@ jobs:
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
 
-      - name: Deploy to server
+      - name: Pull image on server
         uses: appleboy/ssh-action@v1.2.0
         with:
           host: ${{ secrets.SSH_HOST }}
           username: ${{ secrets.SSH_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          command_timeout: 30m
           script: |
             DEPLOY_PATH="${{ secrets.DEPLOY_PATH }}"
             if [ -z "$DEPLOY_PATH" ]; then DEPLOY_PATH="/opt/titanicml"; fi
             cd "$DEPLOY_PATH"
             docker compose -f docker-compose.prod.yml --env-file .env pull
+
+      - name: Start containers on server
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          command_timeout: 10m
+          script: |
+            DEPLOY_PATH="${{ secrets.DEPLOY_PATH }}"
+            if [ -z "$DEPLOY_PATH" ]; then DEPLOY_PATH="/opt/titanicml"; fi
+            cd "$DEPLOY_PATH"
             docker compose -f docker-compose.prod.yml --env-file .env up -d
