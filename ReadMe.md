@@ -105,7 +105,9 @@ git push origin v1.0.0
 Или вручную: Actions → Deploy → Run workflow → указать тег.
 
 После успешного workflow API будет доступно на `https://ВАШ_ДОМЕН/health`.
+cd /opt/titanicml
 docker compose -f docker-compose.prod.yml --env-file .env pull
+docker compose -f docker-compose.prod.yml --env-file .env up -d
 
 ## Обучение модели
 

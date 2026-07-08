@@ -2,7 +2,8 @@ import streamlit as st
 import requests
 from requests.exceptions import ConnectionError
 
-ip_api = "170.168.101.56"
+# ip_api = "170.168.101.56"
+ip_api = "ml.eletmed.ru"
 port_api = "5026"
 
 st.title("Titanic Survival Prediction")
@@ -26,7 +27,8 @@ if not fare.isdigit():
 if st.button("Predict Survival"):
     if age.isdigit() and fare.isdigit():   
         try:
-            url = f"http://{ip_api}:{port_api}/predict_model"
+            # url = f"http://{ip_api}:{port_api}/predict_model"
+            url = f"https://{ip_api}/predict_model"
             payload = {"Pclass": pclass, "Age": int(age), "Fare": int(fare)}
             response = requests.post(url, json=payload)
             if response.status_code == 200:
