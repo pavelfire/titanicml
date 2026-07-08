@@ -33,9 +33,9 @@ source .venv/bin/activate
 Шаг 4: Тестирование API
 Теперь вы можете тестировать ваше API с помощью curl или любого другого инструмента для отправки HTTP запросов.
 
-curl -X GET http://127.0.0.1:5000/health
-curl -X GET http://127.0.0.1:5000/stats
-curl -X POST http://127.0.0.1:5000/predict_model \
+curl -X GET http://127.0.0.1:5026/health
+curl -X GET http://127.0.0.1:5026/stats
+curl -X POST http://127.0.0.1:5026/predict_model \
   -H "Content-Type: application/json" \
   -d '{"Pclass": 3, "Age": 22, "Fare": 7.25}'
 '''
@@ -91,6 +91,6 @@ def predict_model(input_data: PredictionInput):
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app, host="127.0.0.1", port=5000)
+    uvicorn.run(app, host="127.0.0.1", port=5026)
 
     

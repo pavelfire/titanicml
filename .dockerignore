@@ -1,3 +1,7 @@
 *.ipynb
 *.csv
 *.md
+.venv
+__pycache__
+*.pyc
+.git
